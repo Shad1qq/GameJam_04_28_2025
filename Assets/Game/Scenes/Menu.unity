@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2738511}
   - component: {fileID: 2738510}
+  - component: {fileID: 2738512}
   m_Layer: 0
   m_Name: MenuManager
   m_TagString: Untagged
@@ -150,6 +151,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FieldCreate: {fileID: 1724347963}
   FieldConnect: {fileID: 766546207}
+  FieldName: {fileID: 1451880530}
+  prefabPanelUser: {fileID: 2877360838852970913, guid: 82981fe1437ae7245a037fe9dda8ec2a,
+    type: 3}
+  panelUsers: {fileID: 1223581659}
   panelRoom: {fileID: 490884366}
   panelMu: {fileID: 593779828}
   playButton: {fileID: 531223431}
@@ -168,6 +173,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2738512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2738509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &118325510
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &141406565
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2207,8 +2234,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -87.57599, y: 6.144287}
-  m_SizeDelta: {x: -175.15, y: -202.7592}
+  m_AnchoredPosition: {x: -87.57599, y: 105.05469}
+  m_SizeDelta: {x: -175.15, y: -454.9281}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1223581661
 MonoBehaviour:
@@ -2227,7 +2254,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 2
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
@@ -4140,7 +4167,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6624e7935c5334e8daebe971f0dc0a00, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cea396d6cd530524d9ba0ca67ace27f3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4376,7 +4403,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1963524554}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2738510}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: SaveName
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1963524554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4465,15 +4504,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 2fb83ea89df639b43a22d707d3c22af1, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
