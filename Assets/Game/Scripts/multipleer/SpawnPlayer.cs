@@ -28,7 +28,7 @@ public class SpawnPlayer : MonoBehaviour
         {
             // Если это первый игрок, показываем окно ожидания
             isPlayerOneSelected = true;
-            waitingWindow.SetActive(true);
+            //waitingWindow.SetActive(true);
         }
         else
         {
