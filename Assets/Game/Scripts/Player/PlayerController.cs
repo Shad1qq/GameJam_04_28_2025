@@ -1,5 +1,6 @@
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -27,7 +28,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (_view.IsMine)
         {
             Vector3 direction = _inputActions.Player.Move.ReadValue<Vector3>();
-            _rb.linearVelocity = new Vector3(direction.x * _speed, _rb.linearVelocity.y, direction.z * _speed);
+            Vector3 worldPos = transform.TransformDirection(direction) * _speed;
+            _rb.linearVelocity = new Vector3(worldPos.x * _speed, _rb.linearVelocity.y, worldPos.z * _speed);
         }      
     }
     private void OnDestroy()

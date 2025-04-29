@@ -14,6 +14,8 @@ public class PlayerCamera : MonoBehaviourPunCallbacks
         _view = GetComponent<PhotonView>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        Camera.main.transform.SetParent(transform);
     }
 
     void Update()
@@ -30,7 +32,7 @@ public class PlayerCamera : MonoBehaviourPunCallbacks
             Camera.main.transform.position = _view.transform.position;
             Camera.main.transform.localRotation = Quaternion.Euler(_rotationY, 0, 0);
 
-            transform.Rotate(Vector3.up * inputX);
+            _view.transform.Rotate(Vector3.up * inputX);
         }
         
     }
