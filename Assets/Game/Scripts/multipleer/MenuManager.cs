@@ -2,7 +2,6 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviourPunCallbacks
@@ -11,23 +10,24 @@ public class MenuManager : MonoBehaviourPunCallbacks
     public TMP_InputField FieldConnect;//ввод названия румы для конекта
 
     public GameObject panelRoom;//в руме панель
+    public GameObject panelMu;//панель подключения к румам
     public GameObject playButton;//кнопка старта игры
 
     private void Start()
     {
         panelRoom.SetActive(false);
-        
     }
 
     #region button
     public void CreateRoom()
     {
         RoomOptions roomOptions = new();
-        roomOptions.MaxPlayers = 5;
+        roomOptions.MaxPlayers = 2;
         PhotonNetwork.CreateRoom(FieldCreate.text, roomOptions);
     }
     public void ConnectRoom()
     {
+        panelMu.SetActive(false);
         PhotonNetwork.JoinRoom(FieldConnect.text);
     }
     public void ExitRoom(){
@@ -42,7 +42,9 @@ public class MenuManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         panelRoom.SetActive(true);
+
         PhotonNetwork.AutomaticallySyncScene = true;
+
         if (PhotonNetwork.IsMasterClient)
         {
             playButton.SetActive(true); // Активируем кнопку для создателя
@@ -62,13 +64,13 @@ public class MenuManager : MonoBehaviourPunCallbacks
         // Здесь можно добавить логику для перехода на главный экран или другую сцену
     }
 
-    // Метод для загрузки уровня для всех игроков
+    /// <summary>
+    /// Метод для загрузки уровня для всех игроков
+    /// </summary>
     [PunRPC]
     private void StartGame()
     {
         if (PhotonNetwork.IsMasterClient)
-        {
             PhotonNetwork.LoadLevel("Game");
-        }   
     }   
 }

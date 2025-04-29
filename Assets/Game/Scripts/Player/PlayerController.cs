@@ -1,6 +1,5 @@
 using Photon.Pun;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -18,10 +17,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         _inputActions = new InputSestem();
         _inputActions.Enable();
     }
+
     private void Update()
     {
         Move();
     }
+
     [PunRPC]
     private void Move()
     {
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             _rb.linearVelocity = new Vector3(worldPos.x * _speed, _rb.linearVelocity.y, worldPos.z * _speed);
         }      
     }
+    
     private void OnDestroy()
     {
         _inputActions.Disable();

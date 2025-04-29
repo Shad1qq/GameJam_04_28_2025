@@ -1,14 +1,17 @@
+using System.Collections;
 using Photon.Pun;
+using TMPro;
 using UnityEngine;
 
-public class SpawnPlayer : MonoBehaviour
+public class SpawnPlayer : MonoBehaviourPunCallbacks
 {
     public GameObject waitingWindow; // Окно ожидания
+    public TextMeshProUGUI timer;
     public GameObject playerPrefab; // Префаб игрока
     public Transform positionSpawn;
-    private bool isPlayerOneSelected = false; // Флаг выбора первого игрока
+    public float timersTime = 60;
 
-    void Start()
+    private void Start()
     {
         // Скрываем окно ожидания при старте
         waitingWindow.SetActive(false);
@@ -18,32 +21,50 @@ public class SpawnPlayer : MonoBehaviour
     }
 
     private void SpawnPlayers()
-    {
-        // Спавним игрока на позиции (0, 0, 0) или другой заданной позиции
-        Vector3 spawnPosition = positionSpawn.position;
-        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
-        
+    {        
         // Проверяем, является ли текущий игрок мастером комнаты
         if (PhotonNetwork.IsMasterClient)
         {
-            // Если это первый игрок, показываем окно ожидания
-            isPlayerOneSelected = true;
-            waitingWindow.SetActive(true);
+            // Если это 1 игрок, даем возможность перемещаться
+            PhotonNetwork.Instantiate(playerPrefab.name, positionSpawn.position, Quaternion.identity);
+            StartCoroutine(nameof(Timer));
         }
         else
         {
-            // Если это второй игрок, даем возможность перемещаться
-            //player.GetComponent<PlayerMovement>().enabled = true; // Включаем движение
+            // Если это не первый игрок, показываем окно ожидания
+            waitingWindow.SetActive(true);
         }
     }
 
     public void SelectPlayerOne()
     {
-        if (isPlayerOneSelected)
-        {
-            // Логика для того, чтобы второй игрок мог начать игру
+        if (!PhotonNetwork.IsMasterClient)
             waitingWindow.SetActive(false);
+            // Логика для того, чтобы второй игрок мог начать игру
             // Здесь можно добавить логику для начала игры
+    }
+
+    private IEnumerator Timer(){
+        int time = 0;
+
+        while(true){
+
+            if(time > timersTime) break;
+
+            time++;
+            photonView.RPC("UpdateText", RpcTarget.All, time.ToString());
+
+            yield return new WaitForSeconds(1);
         }
+
+        if (!PhotonNetwork.IsMasterClient)
+            SelectPlayerOne();
+        //меняем игрока на мента 
+    }
+
+    [PunRPC]
+    public void UpdateText(string newText)
+    {
+        timer.text = $"{newText}/{timersTime}";
     }
 }

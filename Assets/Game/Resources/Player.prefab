@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fcba142b6fcd0d44a1f921b03faf06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 4
+  _speed: 2
 --- !u!54 &-4058612795980297111
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
-  m_SynchronizeScale: 1
+  m_SynchronizeScale: 0
   m_UseLocal: 1
 --- !u!114 &968209760403385183
 MonoBehaviour:
@@ -224,4 +224,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1517f37f2ba40c64e88cbee592fe1338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mouseSensivity: 20
+  _mouseSensivity: 2

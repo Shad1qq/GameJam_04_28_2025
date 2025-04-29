@@ -9,19 +9,18 @@ public class PlayerCamera : MonoBehaviourPunCallbacks
     
     float _rotationY = 0f;
     float _rotationX = 0f;
-    void Start()
+    
+    private void Start()
     {
         _view = GetComponent<PhotonView>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
         if (_view.IsMine)
-        {
             Camera.main.transform.SetParent(transform);
-        }
-        
     }
 
-    void Update()
+    private void Update()
     {
         if (_view.IsMine)
         {
@@ -37,6 +36,5 @@ public class PlayerCamera : MonoBehaviourPunCallbacks
 
             _view.transform.Rotate(Vector3.up * inputX);
         }
-        
     }
 }
