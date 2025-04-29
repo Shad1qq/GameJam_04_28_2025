@@ -16,6 +16,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         panelRoom.SetActive(false);
+        
     }
 
     #region button
@@ -41,7 +42,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         panelRoom.SetActive(true);
-
+        PhotonNetwork.AutomaticallySyncScene = true;
         if (PhotonNetwork.IsMasterClient)
         {
             playButton.SetActive(true); // Активируем кнопку для создателя
@@ -65,7 +66,9 @@ public class MenuManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void StartGame()
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
-        PhotonNetwork.LoadLevel("Game");
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("Game");
+        }   
     }
 }
