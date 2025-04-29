@@ -28,6 +28,8 @@ public class MenuManager : MonoBehaviourPunCallbacks
     #region button
     public void CreateRoom()
     {
+        if(string.IsNullOrEmpty(FieldCreate.text)) return;
+        
         RoomOptions roomOptions = new();
         roomOptions.MaxPlayers = 2;
         PhotonNetwork.CreateRoom(FieldCreate.text, roomOptions);
