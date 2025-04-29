@@ -224,4 +224,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1517f37f2ba40c64e88cbee592fe1338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mouseSensivity: 2
+  _mouseSensivity: 20
