@@ -1,5 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Zenject;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -8,6 +10,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField]private float _speed;
 
     private InputSestem _inputActions;
+
 
     private void Start()
     {
