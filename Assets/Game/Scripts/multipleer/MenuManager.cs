@@ -2,6 +2,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviourPunCallbacks
@@ -61,12 +62,10 @@ public class MenuManager : MonoBehaviourPunCallbacks
     }
 
     // Метод для загрузки уровня для всех игроков
+    [PunRPC]
     private void StartGame()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.LoadLevel("Game");
-            PhotonNetwork.AutomaticallySyncScene = true;
-        }   
+        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.LoadLevel("Game");
     }
 }
