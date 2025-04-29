@@ -14,8 +14,11 @@ public class PlayerCamera : MonoBehaviourPunCallbacks
         _view = GetComponent<PhotonView>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        Camera.main.transform.SetParent(transform);
+        if (_view.IsMine)
+        {
+            Camera.main.transform.SetParent(transform);
+        }
+        
     }
 
     void Update()
