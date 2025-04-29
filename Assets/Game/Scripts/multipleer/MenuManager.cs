@@ -6,12 +6,19 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviourPunCallbacks
 {
+#region param
     public TMP_InputField FieldCreate;//ввод названия румы для создания румы
     public TMP_InputField FieldConnect;//ввод названия румы для конекта
+    public TMP_InputField FieldName;//ввод названия румы для конекта
+
+    public GameObject prefabPanelUser;
+    public GameObject panelUsers;
 
     public GameObject panelRoom;//в руме панель
     public GameObject panelMu;//панель подключения к румам
     public GameObject playButton;//кнопка старта игры
+    private int uiElementID;
+    #endregion
 
     private void Start()
     {
@@ -34,6 +41,9 @@ public class MenuManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.InRoom)
             PhotonNetwork.LeaveRoom();
     }
+    public void SaveName(){
+        photonView.RPC("CreateUserPanel", RpcTarget.All, uiElementID, FieldName.text);
+    }
     #endregion
 
     /// <summary>
@@ -52,8 +62,20 @@ public class MenuManager : MonoBehaviourPunCallbacks
         }
         else
             playButton.SetActive(false);
+        
+        GameObject uiElement = PhotonNetwork.Instantiate(prefabPanelUser.name, Vector3.zero, Quaternion.identity, 0);
+        uiElementID = uiElement.GetComponent<PhotonView>().ViewID;
+
+        photonView.RPC("CreateUserPanel", RpcTarget.All, uiElementID, "User");
     }
 
+    [PunRPC]
+    private void CreateUserPanel(int viewID, string name){
+        PhotonView photonView = PhotonView.Find(viewID);
+        photonView.gameObject.transform.parent = panelUsers.transform;
+        photonView.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = name;
+    }
+    
     /// <summary>
     /// ливнул с румы вызвался метод
     /// </summary>
