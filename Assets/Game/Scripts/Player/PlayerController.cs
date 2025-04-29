@@ -1,8 +1,10 @@
+using Photon.Pun;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     private Rigidbody _rb;
+    private PhotonView _view;
     [SerializeField]private float _speed;
 
     private InputSestem _inputActions;
@@ -10,6 +12,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _view = GetComponent<PhotonView>();
+
         _inputActions = new InputSestem();
         _inputActions.Enable();
     }
@@ -17,10 +21,14 @@ public class PlayerController : MonoBehaviour
     {
         Move();
     }
+    [PunRPC]
     private void Move()
     {
-        Vector3 direction = _inputActions.Player.Move.ReadValue<Vector3>();
-        _rb.linearVelocity = new Vector3(direction.x * _speed, _rb.linearVelocity.y, direction.z * _speed);
+        if (_view.IsMine)
+        {
+            Vector3 direction = _inputActions.Player.Move.ReadValue<Vector3>();
+            _rb.linearVelocity = new Vector3(direction.x * _speed, _rb.linearVelocity.y, direction.z * _speed);
+        }      
     }
     private void OnDestroy()
     {

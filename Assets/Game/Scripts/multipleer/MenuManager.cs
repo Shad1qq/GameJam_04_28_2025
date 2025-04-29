@@ -70,5 +70,5 @@ public class MenuManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel("Game");
         }   
-    }
+    }   
 }
