@@ -33,7 +33,7 @@ public class PlayerCamera : MonoBehaviourPunCallbacks
 
             _rotationY = Mathf.Clamp(_rotationY, -90f, 90f);
             Camera.main.transform.position = _view.transform.position;
-            transform.localRotation = Quaternion.Euler(_rotationY, 0, 0);
+            Camera.main.transform.localRotation = Quaternion.Euler(_rotationY, 0, 0);
 
             _view.transform.Rotate(Vector3.up * inputX);
         }
