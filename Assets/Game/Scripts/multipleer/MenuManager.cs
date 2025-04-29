@@ -63,6 +63,10 @@ public class MenuManager : MonoBehaviourPunCallbacks
     // Метод для загрузки уровня для всех игроков
     private void StartGame()
     {
-        PhotonNetwork.LoadLevel("Game");
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("Game");
+            PhotonNetwork.AutomaticallySyncScene = true;
+        }   
     }
 }

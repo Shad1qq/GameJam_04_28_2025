@@ -8,18 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/Scenes/Menu.unity
     guid: 99f6f137d5cdb1548bcca469cab5345b
-  - enabled: 0
-    path: Assets/Game/Scenes/HUD.unity
-    guid: 2a5c0f849d51cde469185c2eb4cbeb19
-  - enabled: 0
-    path: Assets/Game/Scenes/Spawn.unity
-    guid: 744171b6f1012fd4e86b8c4c827fd05c
   - enabled: 1
     path: Assets/Game/Scenes/Game.unity
     guid: 3e89a7c1f245b2d40a65350af796dfe0
-  - enabled: 0
-    path: Assets/Game/Scenes/Level2.unity
-    guid: 2facd36b7c6548b4d8e75d616fabd2f4
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 822478ad38aa1a649bd2883f4b0c30ed,
       type: 2}
