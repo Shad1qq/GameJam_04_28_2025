@@ -36,12 +36,18 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
         }
     }
 
+    /// <summary>
+    /// спавн мента
+    /// </summary>
+    [PunRPC]
     public void SelectPlayerOne()
     {
-        if (!PhotonNetwork.IsMasterClient)
+        if (!PhotonNetwork.IsMasterClient){
             waitingWindow.SetActive(false);
+            PhotonNetwork.Instantiate(playerPrefab.name, positionSpawn.position, Quaternion.identity);
+        }
             // Логика для того, чтобы второй игрок мог начать игру
-            // Здесь можно добавить логику для начала игры
+            // спавн мента
     }
 
     private IEnumerator Timer(){
@@ -57,8 +63,7 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
             yield return new WaitForSeconds(1);
         }
 
-        if (!PhotonNetwork.IsMasterClient)
-            SelectPlayerOne();
+        photonView.RPC("SelectPlayerOne", RpcTarget.All);
         //меняем игрока на мента 
     }
 
