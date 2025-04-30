@@ -1,31 +1,33 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class ScriptDragDiller:ClassBase
 {
     private InputSestem _actions;
+    private PhotonView photonViewe;
+    private SpawnPlayer sp;
+
+    public GameObject Picker;
 
     private void Start()
     {
+        sp = (SpawnPlayer)FindObjectOfType(typeof(SpawnPlayer));
+        photonViewe = sp.GetComponent<PhotonView>();
+
+        Picker = transform.Find("Picker").gameObject;
         _actions = new InputSestem();
         _actions.Enable();
-        foreach (Transform transformObj in GetComponentsInChildren<Transform>())
-        {
-            if (transformObj.tag == "Picker")
-            {
-                _pickerObject = transformObj;
-            }
-        }
     }
 
     private void Update()
     {
-        if (CheckItem() == true && _actions.Player.Interact.WasPressedThisFrame())
-        {
-            GetItem();
+        if (CheckItem() == true && _actions.Player.pic.WasPressedThisFrame()){
+            sp._pickerObject.position = Picker.transform.position;
+
+            photonViewe.RPC("GetItem", RpcTarget.All, Picker.GetComponent<PhotonView>().ViewID);
         }
-        if (_pickerObject.childCount > 0 && _actions.Player.Jump.WasPressedThisFrame())
-        {
-            DropItem();
-        }
+
+        if (transform.childCount > 1 && _actions.Player.Attack.WasPressedThisFrame())
+            photonViewe.RPC("DropItem", RpcTarget.All);
     }
 }

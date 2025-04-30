@@ -1,7 +1,5 @@
 using Photon.Pun;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using Zenject;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
