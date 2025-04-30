@@ -26,7 +26,7 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             // Если это 1 игрок, даем возможность перемещаться
-            PhotonNetwork.Instantiate(playerPrefab.name, positionSpawn.position, Quaternion.identity).AddComponent<ScriptPoliceMan>();
+            PhotonNetwork.Instantiate(playerPrefab.name, positionSpawn.position, Quaternion.identity).AddComponent<ScriptDragDiller>();
             StartCoroutine(nameof(Timer));
         }
         else
@@ -44,7 +44,7 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
     {
         if (!PhotonNetwork.IsMasterClient){
             waitingWindow.SetActive(false);
-            PhotonNetwork.Instantiate(playerPrefab.name, positionSpawn.position, Quaternion.identity).AddComponent<ScriptDragDiller>();
+            PhotonNetwork.Instantiate(playerPrefab.name, positionSpawn.position, Quaternion.identity).AddComponent<ScriptPoliceMan>();
         }
             // Логика для того, чтобы второй игрок мог начать игру
             // спавн мента

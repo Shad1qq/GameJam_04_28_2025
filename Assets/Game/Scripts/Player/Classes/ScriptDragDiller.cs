@@ -23,5 +23,9 @@ public class ScriptDragDiller:ClassBase
         {
             GetItem();
         }
+        if (_pickerObject.childCount > 0 && _actions.Player.Jump.WasPressedThisFrame())
+        {
+            DropItem();
+        }
     }
 }
