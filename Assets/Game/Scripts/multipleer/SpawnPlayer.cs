@@ -36,7 +36,9 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
     {        
         _inputActions = new();
         _inputActions.Enable();
-
+        
+        Application.targetFrameRate = 60;
+        
         // Скрываем окно ожидания при старте
         waitingWindow.SetActive(false);
         lousePanel.SetActive(false);

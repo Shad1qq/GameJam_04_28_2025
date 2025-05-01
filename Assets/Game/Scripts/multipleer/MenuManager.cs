@@ -22,6 +22,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
         panelRoom.SetActive(false);
     }
 
