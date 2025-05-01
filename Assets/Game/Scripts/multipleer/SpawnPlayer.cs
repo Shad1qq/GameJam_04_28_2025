@@ -6,6 +6,9 @@ using UnityEngine;
 public class SpawnPlayer : MonoBehaviourPunCallbacks
 {
     public GameObject waitingWindow; // Окно ожидания
+    public GameObject winPanel; // Окно победы
+    public GameObject lousePanel; // Окно проигрыша
+
     public TextMeshProUGUI timer;
     public GameObject playerPrefab; // Префаб игрока
     public GameObject pickerPrefab; // Префаб игрока
@@ -21,7 +24,9 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
     {
         // Скрываем окно ожидания при старте
         waitingWindow.SetActive(false);
-        
+        lousePanel.SetActive(false);
+        winPanel.SetActive(false);
+
         // Спавним игрока
         SpawnPlayers();
     }
@@ -79,7 +84,45 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
         }
 
         photonView.RPC("SelectPlayerOne", RpcTarget.All);
+        StartCoroutine(nameof(Timer2));
         //меняем игрока на мента 
+    }
+
+    private IEnumerator Timer2(){
+        int time = 0;
+
+        while(true){
+
+            if(time > timersTime) break;
+
+            time++;
+            photonView.RPC("UpdateText", RpcTarget.All, time.ToString());
+
+            yield return new WaitForSeconds(1);
+        }
+
+        photonView.RPC("PanelUp", RpcTarget.All);
+        //меняем игрока на мента 
+    }
+
+    [PunRPC]
+    private void PanelUp(){
+        if (!PhotonNetwork.IsMasterClient){
+            lousePanel.SetActive(true);
+        }
+        else{
+            winPanel.SetActive(true);
+        }
+    }
+    
+    [PunRPC]
+    private void PanelDis(){
+        if (PhotonNetwork.IsMasterClient){
+            lousePanel.SetActive(true);
+        }
+        else{
+            winPanel.SetActive(true);
+        }
     }
 
     [PunRPC]

@@ -17,7 +17,7 @@ public class ScriptPoliceMan: ClassBase
     private void Update()
     {
         if(CheckItem() == true && _actions.Player.Interact.WasPressedThisFrame()){
-            //photonViewe.RPC("GetItem", RpcTarget.All);
+            photonViewe.RPC("PanelDis", RpcTarget.All);
             //победное окно
         }
 

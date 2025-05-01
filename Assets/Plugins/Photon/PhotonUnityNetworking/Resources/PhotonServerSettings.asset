@@ -47,6 +47,8 @@ MonoBehaviour:
   - DropItem
   - GetItem
   - SinID
+  - PanelDis
+  - PanelUp
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
