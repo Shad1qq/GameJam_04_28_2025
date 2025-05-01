@@ -2,6 +2,7 @@ using System.Collections;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnPlayer : MonoBehaviourPunCallbacks
 {
@@ -23,12 +24,18 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
     public Transform positionSpawn;
     public Transform pickerSpawn;
     public float timersTime = 60;
+    public InputSestem _inputActions;
 
     public Transform _pickerObject;
     [SerializeField] protected float _dropImpulse = 5f;
 
+    private PhotonView player;
+
     private void Start()
-    {
+    {        
+        _inputActions = new();
+        _inputActions.Enable();
+
         // Скрываем окно ожидания при старте
         waitingWindow.SetActive(false);
         lousePanel.SetActive(false);
@@ -36,6 +43,8 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
         cosacInv.gameObject.SetActive(false);
         cosacPic.gameObject.SetActive(false);
         buttonRestart.SetActive(false);
+
+        buttonRestart.GetComponent<Button>().onClick.AddListener(Restart);
 
         // Спавним игрока
         SpawnPlayers();
@@ -48,7 +57,7 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
         {
             cosacInv.gameObject.SetActive(true);
             // Если это 1 игрок, даем возможность перемещаться
-            PhotonNetwork.Instantiate(playerPrefab.name, positionSpawn.position, Quaternion.identity).AddComponent<ScriptDragDiller>();
+            player = PhotonNetwork.Instantiate(playerPrefab.name, positionSpawn.position, Quaternion.identity).AddComponent<ScriptDragDiller>().GetComponent<PhotonView>();
 
             int _pickerObject = PhotonNetwork.Instantiate(pickerPrefab.name, pickerSpawn.position, Quaternion.identity).GetComponent<PhotonView>().ViewID;
             
@@ -62,18 +71,37 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
         }
             // Если это не первый игрок, показываем окно ожидания
     }
+    
     [PunRPC]
     public void Restart()
-    {
-        if (PhotonNetwork.IsMasterClient)
-            PhotonNetwork.LoadLevel("Game");
+    {        
+        photonView.RPC("StartLoop", RpcTarget.All);
     }   
+
+    [PunRPC]
+    public void StartLoop()
+    {
+        StopAllCoroutines();
+        waitingWindow.SetActive(false);
+        lousePanel.SetActive(false);
+        winPanel.SetActive(false);
+        cosacInv.gameObject.SetActive(false);
+        cosacPic.gameObject.SetActive(false);
+        buttonRestart.SetActive(false);
+
+        Camera.main.transform.SetParent(transform);
+        PhotonNetwork.Destroy(player);
+
+        SpawnPlayers();
+    }   
+
 
     [PunRPC]
     public void SinID(int id)
     {
         _pickerObject = PhotonView.Find(id).transform;
     }
+    
     /// <summary>
     /// спавн мента
     /// </summary>
@@ -82,7 +110,7 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
     {
         if (!PhotonNetwork.IsMasterClient){
             waitingWindow.SetActive(false);
-            GameObject ob = PhotonNetwork.Instantiate(playerPrefab.name, positionSpawn.position, Quaternion.identity).AddComponent<ScriptPoliceMan>().gameObject;
+            player = PhotonNetwork.Instantiate(playerPrefab.name, positionSpawn.position, Quaternion.identity).AddComponent<ScriptPoliceMan>().GetComponent<PhotonView>();
         }
         //StartCoroutine(nameof(Timer));
 

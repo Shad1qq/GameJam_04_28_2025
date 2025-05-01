@@ -2272,19 +2272,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 708940980}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 901838334}
-        m_TargetAssemblyTypeName: SpawnPlayer, Assembly-CSharp
-        m_MethodName: Restart
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &708940980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4076,8 +4064,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u043C\u0435\u043D\u0442\u044B \u0432\u044B\u0435\u0445\u0430\u043B\u0438
-    \u043D\u0430 \u043C\u0435\u0441\u0442\u043E, \u0436\u0434\u0435\u043C \u043F\u0440\u0438\u0431\u044B\u0442\u0438\u044F..."
+  m_text: the cops have gone to the place, we are waiting for arrival...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
