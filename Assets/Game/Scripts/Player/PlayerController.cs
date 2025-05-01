@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private PhotonView _view;
     [SerializeField] private float _speed;
 
+    [SerializeField]private float _jumpForce;
     private InputSestem _inputActions;
 
     [System.Obsolete]
@@ -21,6 +22,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private void Update()
     {
         Move();
+        if (_inputActions.Player.Jump.WasPressedThisFrame())
+        {
+            Jump();
+        }
     }
 
     [PunRPC]
@@ -32,5 +37,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
             Vector3 worldPos = transform.TransformDirection(direction) * _speed;
             _rb.linearVelocity = new Vector3(worldPos.x * _speed, _rb.linearVelocity.y, worldPos.z * _speed);
         }      
+    }
+
+    [PunRPC]
+    private void Jump()
+    {
+        if (_view.IsMine)
+        {
+            _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+        }
+
     }
 }

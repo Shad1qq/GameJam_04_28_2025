@@ -51,6 +51,7 @@ MonoBehaviour:
   - PanelUp
   - Restart
   - StartLoop
+  - Jump
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

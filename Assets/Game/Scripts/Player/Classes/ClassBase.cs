@@ -2,7 +2,7 @@
 using UnityEngine;
 public abstract class ClassBase : MonoBehaviourPunCallbacks
 {
-    [SerializeField]protected float _maxDistance = 4f;    
+    [SerializeField]protected float _maxDistance = 7f;    
 
     public bool CheckItem()
     {
