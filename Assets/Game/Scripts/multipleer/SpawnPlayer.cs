@@ -9,7 +9,14 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
     public GameObject winPanel; // Окно победы
     public GameObject lousePanel; // Окно проигрыша
 
+
+    public GameObject buttonRestart;
+
     public TextMeshProUGUI timer;
+
+    public TextMeshProUGUI cosacPic;
+    public TextMeshProUGUI cosacInv;
+
     public GameObject playerPrefab; // Префаб игрока
     public GameObject pickerPrefab; // Префаб игрока
 
@@ -26,6 +33,9 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
         waitingWindow.SetActive(false);
         lousePanel.SetActive(false);
         winPanel.SetActive(false);
+        cosacInv.gameObject.SetActive(false);
+        cosacPic.gameObject.SetActive(false);
+        buttonRestart.SetActive(false);
 
         // Спавним игрока
         SpawnPlayers();
@@ -36,6 +46,7 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
         // Проверяем, является ли текущий игрок мастером комнаты
         if (PhotonNetwork.IsMasterClient)
         {
+            cosacInv.gameObject.SetActive(true);
             // Если это 1 игрок, даем возможность перемещаться
             PhotonNetwork.Instantiate(playerPrefab.name, positionSpawn.position, Quaternion.identity).AddComponent<ScriptDragDiller>();
 
@@ -45,10 +56,18 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
 
             StartCoroutine(nameof(Timer));
         }
-        else
+        else{
+            cosacPic.gameObject.SetActive(true);
             waitingWindow.SetActive(true);
+        }
             // Если это не первый игрок, показываем окно ожидания
     }
+    [PunRPC]
+    public void Restart()
+    {
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.LoadLevel("Game");
+    }   
 
     [PunRPC]
     public void SinID(int id)
@@ -111,6 +130,11 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
             lousePanel.SetActive(true);
         }
         else{
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+
+            buttonRestart.SetActive(true);
+
             winPanel.SetActive(true);
         }
     }
@@ -118,6 +142,11 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
     [PunRPC]
     private void PanelDis(){
         if (PhotonNetwork.IsMasterClient){
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+
+            buttonRestart.SetActive(true);
+
             lousePanel.SetActive(true);
         }
         else{
