@@ -9,14 +9,14 @@ public class ScriptDragDiller:ClassBase
 
     public GameObject Picker;
 
+    [System.Obsolete]
     private void Start()
     {
-        sp = (SpawnPlayer)FindObjectOfType(typeof(SpawnPlayer));
+        sp = FindObjectOfType<SpawnPlayer>();
         photonViewe = sp.GetComponent<PhotonView>();
 
         Picker = transform.Find("Picker").gameObject;
-        _actions = new InputSestem();
-        _actions.Enable();
+        _actions = FindObjectOfType<SpawnPlayer>()._inputActions;
     }
 
     private void Update()

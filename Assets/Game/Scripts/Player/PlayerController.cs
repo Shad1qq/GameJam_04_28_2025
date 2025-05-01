@@ -5,18 +5,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
 {
     private Rigidbody _rb;
     private PhotonView _view;
-    [SerializeField]private float _speed;
+    [SerializeField] private float _speed;
 
     private InputSestem _inputActions;
 
-
+    [System.Obsolete]
     private void Start()
     {
+        _inputActions = FindObjectOfType<SpawnPlayer>()._inputActions;
+
         _rb = GetComponent<Rigidbody>();
         _view = GetComponent<PhotonView>();
-
-        _inputActions = new InputSestem();
-        _inputActions.Enable();
     }
 
     private void Update()
@@ -33,10 +32,5 @@ public class PlayerController : MonoBehaviourPunCallbacks
             Vector3 worldPos = transform.TransformDirection(direction) * _speed;
             _rb.linearVelocity = new Vector3(worldPos.x * _speed, _rb.linearVelocity.y, worldPos.z * _speed);
         }      
-    }
-    
-    private void OnDestroy()
-    {
-        _inputActions.Disable();
     }
 }
