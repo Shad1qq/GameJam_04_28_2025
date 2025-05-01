@@ -8346,7 +8346,7 @@ MonoBehaviour:
     type: 3}
   positionSpawn: {fileID: 1234894674}
   pickerSpawn: {fileID: 598744343}
-  timersTime: 20
+  timersTime: 10
   _pickerObject: {fileID: 0}
   _dropImpulse: 5
 --- !u!114 &901838335
@@ -10506,7 +10506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1362531402
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12060,7 +12060,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1770722734
 RectTransform:
   m_ObjectHideFlags: 0

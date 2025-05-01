@@ -30,6 +30,7 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
     [SerializeField] protected float _dropImpulse = 5f;
 
     private PhotonView player;
+    private PhotonView itemPuck;
 
     private void Start()
     {        
@@ -59,8 +60,9 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
             // Если это 1 игрок, даем возможность перемещаться
             player = PhotonNetwork.Instantiate(playerPrefab.name, positionSpawn.position, Quaternion.identity).AddComponent<ScriptDragDiller>().GetComponent<PhotonView>();
 
-            int _pickerObject = PhotonNetwork.Instantiate(pickerPrefab.name, pickerSpawn.position, Quaternion.identity).GetComponent<PhotonView>().ViewID;
-            
+            itemPuck = PhotonNetwork.Instantiate(pickerPrefab.name, pickerSpawn.position, Quaternion.identity).GetComponent<PhotonView>();
+            int _pickerObject = itemPuck.ViewID;
+
             photonView.RPC("SinID", RpcTarget.All, _pickerObject);
 
             StartCoroutine(nameof(Timer));
@@ -80,7 +82,9 @@ public class SpawnPlayer : MonoBehaviourPunCallbacks
 
     [PunRPC]
     public void StartLoop()
-    {
+    {   
+        PhotonNetwork.Destroy(itemPuck);
+
         StopAllCoroutines();
         waitingWindow.SetActive(false);
         lousePanel.SetActive(false);
