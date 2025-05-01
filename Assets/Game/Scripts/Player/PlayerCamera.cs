@@ -19,7 +19,10 @@ public class PlayerCamera : MonoBehaviourPunCallbacks
         if (_view.IsMine)
             Camera.main.transform.SetParent(transform);
 
-        Camera.main.transform.position = _view.transform.position;
+        if (_view.IsMine)
+        {
+            Camera.main.transform.position = _view.transform.position;
+        }
     }
 
     private void Update()
@@ -33,6 +36,7 @@ public class PlayerCamera : MonoBehaviourPunCallbacks
             _rotationX += inputX;
 
             _rotationY = Mathf.Clamp(_rotationY, -90f, 90f);
+
             
             Camera.main.transform.localRotation = Quaternion.Euler(_rotationY, 0, 0);
 

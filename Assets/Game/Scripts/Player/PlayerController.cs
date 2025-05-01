@@ -6,8 +6,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private Rigidbody _rb;
     private PhotonView _view;
     [SerializeField] private float _speed;
-
     [SerializeField]private float _jumpForce;
+    [SerializeField] private Light _light;
+
     private InputSestem _inputActions;
 
     [System.Obsolete]
@@ -17,6 +18,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         _rb = GetComponent<Rigidbody>();
         _view = GetComponent<PhotonView>();
+        if (_view.IsMine)
+        { 
+            _light.transform.parent = Camera.main.transform;
+        }
+        
     }
 
     private void Update()
@@ -26,11 +32,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             Jump();
         }
+        SwitchFlashLight();
     }
 
     [PunRPC]
     private void Move()
     {
+        _light.transform.localPosition = Vector3.zero;
         if (_view.IsMine)
         {
             Vector3 direction = _inputActions.Player.Move.ReadValue<Vector3>();
@@ -47,5 +55,26 @@ public class PlayerController : MonoBehaviourPunCallbacks
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }
 
+    }
+    private void SwitchFlashLight()
+    {
+        if (_view.IsMine) 
+        {
+            if (_light.enabled == false)
+            {
+                if (_inputActions.Player.Interact.WasPressedThisFrame())
+                {
+                    _light.enabled = true;
+                }
+            }
+            else if (_light.enabled == true)
+            {
+                if (_inputActions.Player.Interact.WasPressedThisFrame())
+                {
+                    _light.enabled = false;
+                }
+            }
+        }
+        
     }
 }
